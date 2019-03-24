@@ -11,6 +11,7 @@ services:
   nginx:
       image: nginx:1.15
       container_name: laravel_nginx
+      restart: always
       working_dir: /usr/share/nginx/laravel
       networks:
         - laravel
@@ -20,8 +21,10 @@ services:
           - ./:/usr/share/nginx/laravel
           - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
   mysql:
-      image: mysql:8
-      container_name: laravel_mysql
+      image: mysql:5.7
+      restart: always
+      container_name: mysql
+      command: --disable-partition-engine-check
       networks:
         - laravel
       environment:
